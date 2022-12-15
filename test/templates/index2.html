@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+hello world
+<br>
+{{ data }}<!---->
+<br>
+{{ data['name'] }}<!---->
+<br>
+{{ data.name }}<!--得到list中元素-->
+<br>
+mylist:{{ data.mylist }}<!--得到list-->
+<br>
+mylist:{{ data.mylist[2] }}<!--下标获取list指定元素-->
+<br>
+count:{{ data.mylist[1]+data.mylist[2] }}<!--进行计算-->
+<br>
+{{ "hello_world" | upper }}<!--注意区分变量和常量
+加|表示过滤器，具备不同的功能
+upper，将小写转换为大写
+title，将首字母转换为大写
+replace('a','b'，count),将a字符串替换成b字符串，第三个参数决定了替换几次
+https://jinja.palletsprojects.cpm/en/2.10.x/templates/?highlight=safe#upper
+-->
+<br>
+mylist列表:{{ data.mylist | li2 }}
+</body>
+</html>

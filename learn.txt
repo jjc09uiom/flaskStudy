@@ -1,0 +1,10 @@
+创建类——self参数指类的实例本身，而不是类
+创建类之后通常会创建一个_init_()方法，在创建实例时会自动执行，其他方法不会
+
+class Person():
+    def __init__(self):
+        print("是一个人")
+    def eat(self):
+        print("要吃饭" )
+Bob=Person()
+
