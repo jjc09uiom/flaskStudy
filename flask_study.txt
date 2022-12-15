@@ -1,0 +1,87 @@
+@app.route('/')
+是一个装饰器用来解析url
+
+@app.route('/hello',methods=['GET',"POST'])
+methods指匹配的url动作，GET：直接访问网页的请求
+						POST：请求表单
+						
+@app.route('/user/<id>')
+def index(id):
+	if id == '1':
+		return 'python'
+	if id == str(2):
+		return 'django'
+	if int(id) == 3:
+		return 'flask'
+	return 'hello world'
+在route中接收前端url的不同变量
+监控号<id>以字符的形式返回变量，
+index接受id变量后在函数中定义不同的分支匹配变量
+添加规则转换器，可以以不同类型变量返回
+/user/<int:id>------>以int变量返回监控号
+string:接收任何不包含斜杠的文本
+int：接收正整数
+float：接收正浮点数
+path：接收包含斜杠的文本
+
+
+*自定义转换器
+监控号<>：用于提取参数
+<int:id>：int转换器
+
+自定义：
+	from werkzeug.routing import BaseConverter
+	from flask import Flask
+	
+	app = Flask(__name__)
+	
+	class RegexConverter(BaseConverter):
+		def __init__(self,url_map,regex):
+			#调用父类方法
+			super(RegexConverter,self).__init__(url_map)
+			self.regex = regex
+			
+		def to_python(self,value):
+			print('to_python方法已经被调用')
+			return value
+	#将自定义的转换器添加到flask应用中
+	app.url_map.converters['re'] = RegexConverter
+	
+	@app.route('/index/<re("123"):value>')
+	def index(value):
+		print(value)
+		return 'hello xx'
+	
+	if __name__ == '__main__':
+		app.run()
+
+* re("1\d{10}")---以1开头的10位数字
+
+
+渲染form表单：
+from flask import Flask,render_template
+
+def index():
+	return render_template('index.html')
+	
+
+
+request :包含前端发送过来的所有请求数据
+from flask import request
+if request.method == 'GET'
+	return 'index.html'
+if request.method == 'POST'
+	name = request.form.get('name')
+	password = request.form.get('password')
+	prin(nama,password)
+	return 'this is post'
+	
+	
+	
+重定向：
+	#302
+	from flask import redirect,url_for
+	redirect('https://www.baidu.com')---外部网址
+	
+	redirect(url_for('hello'))----内部函数/路由
+	
